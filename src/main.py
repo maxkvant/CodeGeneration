@@ -99,9 +99,6 @@ def main():
     csv_path = 'learning-file_2.csv'
     raw_data = pd.read_csv(csv_path)
     dataset_info = get_dataset_info(raw_data)
-
-    # Predefined parameters
-    raw_data = pd.read_csv("learning-file_2.csv")
     # Assume raw_data is a pandas DataFrame with 'timestamp' and 'signal' columns
     signal_data = raw_data['signal'].values
 

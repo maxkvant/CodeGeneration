@@ -30,7 +30,7 @@ def topological_sort(steps: List[Step]) -> List[Step]:
     return order
 
 class Orchestrator:
-    MAX_RETRIES = 10
+    MAX_RETRIES = 5
     def __init__(
           self,
           model: Model,
