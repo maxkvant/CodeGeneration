@@ -1,7 +1,10 @@
 import requests
 from loguru import logger
 
+from graph import Step
+
 from typing import List, Dict
+
 
 class OpenAiLlamaApi:
     def __init__(self, api_url, api_key,  model_tag):
@@ -57,7 +60,7 @@ class PromptGenerator:
         self.example_script = example_script
         self.dataset_info = dataset_info
 
-    def generate(self, step: Step, model_parameters):
+    def generate(self, step: Step, parameters):
         # f"Use these predefined parameters if needed: SizeSegment={SizeSegment}, gamma={gamma}, nu={nu}, kernel='{kernel}', NC_pca={NC_pca}, Dec_levels={Dec_levels}. "
         parameters_str = ', '.join(f'{name}={val}' for name, val in parameters.items())
         request = (
