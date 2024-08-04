@@ -16,7 +16,7 @@ class ValidationCodeGenerator(CodeGenerator):
       output_params = step.output_vars
 
       validation_code = "import pandas as pd\n"
-      for dep in sorted(step_dependencies):
+      for dep in step_dependencies:
           validation_code += f"from step_{dep.step_id} import step_{dep.step_id}\n"
       validation_code += f"from step_{step.step_id} import step_{step.step_id}\n\n"
 
@@ -27,7 +27,7 @@ class ValidationCodeGenerator(CodeGenerator):
 
       validation_code += "def validate_step():\n"
 
-      for dep in sorted(step_dependencies):
+      for dep in step_dependencies:
           dep_inputs = ", ".join(dep.input_vars)
           dep_outputs = ", ".join(dep.output_vars)
           validation_code += f"    {dep_outputs} = step_{dep.step_id}({dep_inputs})\n"

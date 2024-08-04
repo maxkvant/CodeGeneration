@@ -52,10 +52,23 @@ class Orchestrator:
         id_to_step = {step.step_id: step for step in steps}
         steps_ordered = topological_sort(steps)
 
+        def find_deps(step, deps_set):
+            nonlocal id_to_step
+            if step.step_id in deps_set:
+                return
+            for dep_step_id in step.dependencies:
+                find_deps(id_to_step[dep_step_id], deps_set)
+            deps_set.add(step.step_id)
+
         for step in steps_ordered:
             try:
                 code_snippet, _ = self.generate_step_file(step, parameters)
-                dependencies = [id_to_step[step_id] for step_id in step.dependencies]
+                
+                dependencies = set()
+                find_deps(step, dependencies)
+                dependencies.remove(step.step_id)
+                dependencies = [id_to_step[step_id] for step_id in dependencies]
+
                 _, validation_filename = self.generate_validation_file(step, dependencies, parameters)
                 success, message = self.validate_unit_code(validation_filename)
 
