@@ -8,6 +8,7 @@ from language_modeling import OpenAiLlamaApi, LlamaModel, PromptGenerator
 from code_generation import ValidationCodeGenerator, MainCodeGenerator
 from orchestrator import Orchestrator
 from utils import get_dataset_info
+from pathlib import Path
 
 EXAMPLE_STEP_SCRIPT = """
 import pandas as pd
@@ -96,7 +97,7 @@ steps = [
 
 
 def main():
-    csv_path = 'learning-file_2.csv'
+    csv_path = str(Path('learning-file_2.csv').resolve())
     raw_data = pd.read_csv(csv_path)
     dataset_info = get_dataset_info(raw_data)
     # Assume raw_data is a pandas DataFrame with 'timestamp' and 'signal' columns
